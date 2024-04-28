@@ -23,10 +23,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<CourseProps> = async () => {
   //const firstCategory = 0;
 	//const { data: menu } = await axios.post<MenuItem[]>(process.env.NEXT_PUBLIC_DOMAIN + '/menu', { firstCategory });
-	const menu = await getPage();
+	const menu = getPage();
 	return { 
 		props: {
-		menu
+		menu: menu.menu
 	  }
       
   }
