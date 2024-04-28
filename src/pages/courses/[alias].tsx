@@ -12,15 +12,15 @@ export default withLayout(Course);
 
 export const getStaticPaths: GetStaticPaths = async () => {
 
-	const menu: MenuItem[] = getPage();
+	const menu: CourseProps = getPage();
 
 	return {
-		paths: menu.flatMap(m=>m.pages.map(p => '/courses/' + p.alias)),
+		paths: menu.menu.flatMap(m=>m.pages.map(p => '/courses/' + p.alias)),
 		fallback: true,
 	}
 }
 
-export const getStaticProps: GetStaticProps<CourseProps[]> = async () => {
+export const getStaticProps: GetStaticProps<CourseProps> = async () => {
   //const firstCategory = 0;
 	//const { data: menu } = await axios.post<MenuItem[]>(process.env.NEXT_PUBLIC_DOMAIN + '/menu', { firstCategory });
 	const menu = await getPage();
@@ -42,7 +42,7 @@ interface CourseProps extends Record<string, unknown> {
 }
 
 
-const getPage = (): CourseProps[] => {
+const getPage = (): CourseProps => {
 	return { menu: 
 		[
 			{
