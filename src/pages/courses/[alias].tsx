@@ -5,28 +5,29 @@ import { TopPageModel } from "../../interfaces/page.interface";
 import { GetStaticPaths, GetStaticProps } from "next";
 
 const Course = ({ menu }: CourseProps): JSX.Element => {
-  return <div>Продукты</div>;
+	return <div>Продукты  {menu && menu.length }</div>;
 };
 
 export default withLayout(Course);
 
 export const getStaticPaths: GetStaticPaths = async () => {
 
-	const menu: CourseProps = getPage();
+	const menu: MenuItem[] = getPage();
 
 	return {
-		paths: menu.menu.flatMap(m=>m.pages.map(p => '/courses/' + p.alias)),
+		paths: menu.flatMap(m=>m.pages.map(p => '/courses/' + p.alias)),
 		fallback: true,
 	}
 }
 
 export const getStaticProps: GetStaticProps<CourseProps> = async () => {
-  //const firstCategory = 0;
+  const firstCategory = 0;
 	//const { data: menu } = await axios.post<MenuItem[]>(process.env.NEXT_PUBLIC_DOMAIN + '/menu', { firstCategory });
 	const menu = getPage();
 	return { 
 		props: {
-		menu: menu.menu
+			menu: menu,
+			firstCategory
 	  }
       
   }
@@ -36,130 +37,128 @@ interface CourseProps extends Record<string, unknown> {
 
 	menu: MenuItem[];
   
-  // firstCategory: number;
+	firstCategory: number;
   // page: TopPageModel;
   // products: ProductModel[];
 }
 
 
-const getPage = (): CourseProps => {
-	return { menu: 
-		[
-			{
-				_id: {
-					secondCategory: "Аналитика",
-				},
-				pages: [
-					{
-						alias: "financial-analitics",
-						title: "Курсы по финансовой аналитике",
-						_id: "11",
-						category: "Финансовая аналитика",
-					},
-					{
-						alias: "bid-data",
-						title: "Курсы по Big Data",
-						_id: "12",
-						category: "Big Data",
-					},
-				],
+const getPage = (): MenuItem[] => {
+	return 	[
+		{
+			_id: {
+				secondCategory: "Аналитика",
 			},
-			{
-				_id: {
-					secondCategory: "Бизнес",
+			pages: [
+				{
+					alias: "financial-analitics",
+					title: "Курсы по финансовой аналитике",
+					_id: "11",
+					category: "Финансовая аналитика",
 				},
-				pages: [
-					{
-						alias: "finansovaya-gramotnost",
-						title: "Курсы финансовой грамотности",
-						_id: "13",
-						category: "Финансовая грамотность",
-					},
-					{
-						alias: "enterpreneurs",
-						title: "Курсы предпринимательства",
-						_id: "14",
-						category: "Предпринимательство",
-					},
-				],
-			},
-			{
-				_id: {
-					secondCategory: "Дизайн",
+				{
+					alias: "bid-data",
+					title: "Курсы по Big Data",
+					_id: "12",
+					category: "Big Data",
 				},
-				pages: [
-					{
-						alias: "string",
-						title: "string",
-						_id: "string",
-						category: " string",
-					},
-					{
-						alias: "string",
-						title: "string",
-						_id: "string",
-						category: " string",
-					},
-				],
+			],
+		},
+		{
+			_id: {
+				secondCategory: "Бизнес",
 			},
-			{
-				_id: {
-					secondCategory: "Маркетинг",
+			pages: [
+				{
+					alias: "finansovaya-gramotnost",
+					title: "Курсы финансовой грамотности",
+					_id: "13",
+					category: "Финансовая грамотность",
 				},
-				pages: [
-					{
-						alias: "string",
-						title: "string",
-						_id: "string",
-						category: " string",
-					},
-					{
-						alias: "string",
-						title: "string",
-						_id: "string",
-						category: " string",
-					},
-				],
-			},
-			{
-				_id: {
-					secondCategory: "Программирование",
+				{
+					alias: "enterpreneurs",
+					title: "Курсы предпринимательства",
+					_id: "14",
+					category: "Предпринимательство",
 				},
-				pages: [
-					{
-						alias: "string",
-						title: "string",
-						_id: "string",
-						category: " string",
-					},
-					{
-						alias: "string",
-						title: "string",
-						_id: "string",
-						category: " string",
-					},
-				],
+			],
+		},
+		{
+			_id: {
+				secondCategory: "Дизайн",
 			},
-			{
-				_id: {
-					secondCategory: "Прочее",
+			pages: [
+				{
+					alias: "string",
+					title: "string",
+					_id: "string",
+					category: " string",
 				},
-				pages: [
-					{
-						alias: "string",
-						title: "string",
-						_id: "string",
-						category: " string",
-					},
-					{
-						alias: "string",
-						title: "string",
-						_id: "string",
-						category: " string",
-					},
-				],
+				{
+					alias: "string",
+					title: "string",
+					_id: "string",
+					category: " string",
+				},
+			],
+		},
+		{
+			_id: {
+				secondCategory: "Маркетинг",
 			},
-		]
-	};
+			pages: [
+				{
+					alias: "string",
+					title: "string",
+					_id: "string",
+					category: " string",
+				},
+				{
+					alias: "string",
+					title: "string",
+					_id: "string",
+					category: " string",
+				},
+			],
+		},
+		{
+			_id: {
+				secondCategory: "Программирование",
+			},
+			pages: [
+				{
+					alias: "string",
+					title: "string",
+					_id: "string",
+					category: " string",
+				},
+				{
+					alias: "string",
+					title: "string",
+					_id: "string",
+					category: " string",
+				},
+			],
+		},
+		{
+			_id: {
+				secondCategory: "Прочее",
+			},
+			pages: [
+				{
+					alias: "string",
+					title: "string",
+					_id: "string",
+					category: " string",
+				},
+				{
+					alias: "string",
+					title: "string",
+					_id: "string",
+					category: " string",
+				},
+			],
+		},
+	];
 };
 

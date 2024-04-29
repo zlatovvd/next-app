@@ -5,20 +5,12 @@ import axios from "axios";
 import { MenuItem } from "../interfaces/menu.interface";
 import { withLayout } from "../Layout/Layout";
 
-const Home = (): JSX.Element => {
+const Home = ({menu}:HomeProps): JSX.Element => {
   const [counter, setCounter] = useState<number>(0);
   const [raiting, setRaiting] = useState<number>(3);
 
-  const menu: MenuItem[] = getMenu();
-
   return (
     <div>
-      <ul>
-        {menu.map((item) => (
-          <li key={item._id.secondCategory}>{item._id.secondCategory}</li>
-        ))}
-      </ul>
-
       <Htag tag={"h3"}>{counter}</Htag>
       <Button
         appearance="primary"
@@ -43,16 +35,22 @@ const Home = (): JSX.Element => {
 
 export default withLayout(Home);
 
-// export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-//   const firstCategory = 0;
-//   const { data: menu } = await axios.post<MenuItem[]>(process.env.NEXT_PUBLIC_DOMAIN + '/menu', { firstCategory });
-//   return {
-//     props: {
-//       menu,
-//       firstCategory
-//     }
-//   }
-// }
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+  const firstCategory = 0;
+  //const { data: menu } = await axios.post<MenuItem[]>(process.env.NEXT_PUBLIC_DOMAIN + '/menu', { firstCategory });
+  const menu = getMenu();
+  return {
+    props: {
+      menu,
+      firstCategory
+    }
+  }
+}
+
+interface HomeProps extends Record<string, unknown> {
+  menu: MenuItem[];
+  firstCategory: number;
+}
 
 const getMenu = (): MenuItem[] => {
   return [
@@ -62,16 +60,16 @@ const getMenu = (): MenuItem[] => {
       },
       pages: [
         {
-          alias: "string",
-          title: "string",
-          _id: "string",
-          category: " string",
+          alias: "financial-analitics",
+          title: "Курсы по финансовой аналитике",
+          _id: "11",
+          category: "Финансовая аналитика",
         },
         {
-          alias: "string",
-          title: "string",
-          _id: "string",
-          category: " string",
+          alias: "bid-data",
+          title: "Курсы по Big Data",
+          _id: "12",
+          category: "Big Data",
         },
       ],
     },
@@ -81,16 +79,16 @@ const getMenu = (): MenuItem[] => {
       },
       pages: [
         {
-          alias: "string",
-          title: "string",
-          _id: "string",
-          category: " string",
+          alias: "finansovaya-gramotnost",
+          title: "Курсы финансовой грамотности",
+          _id: "13",
+          category: "Финансовая грамотность",
         },
         {
-          alias: "string",
-          title: "string",
-          _id: "string",
-          category: " string",
+          alias: "enterpreneurs",
+          title: "Курсы предпринимательства",
+          _id: "14",
+          category: "Предпринимательство",
         },
       ],
     },

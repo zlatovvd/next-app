@@ -60,8 +60,9 @@ export const Menu = (): JSX.Element => {
   };
 
   const buildSecondLevel = (menuItem: FirstLevelMenuItem) => {
+    
     return (
-      <div>
+      <div className={styles.secondBlock}>
         {menu.map((m) => (
           <div key={m._id.secondCategory}>
             <div className={styles.secondLevel}>{m._id.secondCategory}</div>
@@ -80,10 +81,10 @@ export const Menu = (): JSX.Element => {
 
   const buildThirdLevel = (pages: PageItem[], route: string) => {
     return pages.map((p) => (
-      <a
+      <a key={p._id}
         href={`/${route}/${p.alias}`}
         className={cn(styles.thirdLevel, {
-          [styles.thirdLevelActive]: true,
+          [styles.thirdLevelActive]: false,
         })}
       >
         {p.category}
@@ -92,7 +93,7 @@ export const Menu = (): JSX.Element => {
   };
 
   const { menu, setMenu, firstCategory } = useContext(AppContext);
-
+console.log("menu second", menu);
   return (
     <div>
       <ul>
